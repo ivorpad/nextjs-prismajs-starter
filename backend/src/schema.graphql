@@ -1,0 +1,35 @@
+# import * from '../generated/prisma-client/dataschema.graphql'
+
+type User {
+  id: ID!
+  name: String!
+  permissions: [Permission]
+  email: String!
+  password: String!
+}
+
+type Message {
+  message: String!
+}
+
+type Query {
+  posts: [Post]
+  users: [User]
+  currentUser: User
+}
+
+
+type Mutation {
+  updatePost(title: String, content: String, id: ID!): Post
+  createUser(
+    name: String!
+    email: String!
+    password: String!
+    permissions: [Permission]
+  ): User
+  login(
+    email: String!
+    password: String!
+  ): User
+  logout(message: String): Message
+}

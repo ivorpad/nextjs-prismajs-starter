@@ -1,0 +1,23 @@
+{
+  "name": "adminica",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon -e js,graphql -x node src/index.js",
+    "debug": "nodemon -e js,graphql -x node --inspect src/index.js"
+  },
+  "dependencies": {
+    "apollo-server-core": "^2.8.1",
+    "bcrypt": "^3.0.6",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.0.0",
+    "graphql-yoga": "^1.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "prisma-binding": "^2.3.15",
+    "wait-on": "^3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}

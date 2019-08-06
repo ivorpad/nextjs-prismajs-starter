@@ -1,21 +1,38 @@
-import React from "react";
-import { Container } from "next/app";
+import App, { Container } from "next/app";
+import Page from '../components/Page'
+import { ApolloProvider } from 'react-apollo';
+import withData from '../lib/withData'
 
 function Layout(props) {
   const { children } = props;
   return <div className="layout">{children}</div>;
 }
 
-function RootApp(props) {
-  const { Component, pageProps } = props;
-  return (
-    <Container>
-      <p>hello there</p>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </Container>
-  );
+class RootApp extends App {
+
+    static async getInitialProps({ Component, ctx }) {
+      let pageProps = {};
+      if (Component.getInitialProps) {
+        pageProps = await Component.getInitialProps(ctx);
+      }
+
+      //pageProps.query = ctx.query;
+      return { pageProps };
+  }
+
+  render() {
+     const { Component, apollo, pageProps } = this.props;
+     return (
+       <Container>
+         <ApolloProvider client={apollo}>
+            <Page>
+              <Component {...pageProps} />
+            </Page>
+         </ApolloProvider>
+       </Container>
+     );
+  }
 }
 
-export default RootApp;
+
+export default withData(RootApp);

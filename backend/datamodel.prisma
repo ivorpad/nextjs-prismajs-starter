@@ -1,0 +1,25 @@
+enum Permission {
+  ADMIN
+  USER
+  EDITOR
+  AUTHOR
+}
+
+type User {
+  id: ID! @id
+  email: String! @unique
+  name: String!
+  password: String!
+  resetToken: String
+  resetTokenExpire: String
+  permissions: [Permission]
+  posts: [Post] @relation(name: "PostsByUser" link: INLINE)
+}
+
+type Post {
+  id: ID! @id
+  title: String
+  content: String
+  published: Boolean
+  user: User @relation(name: "PostsByUser")
+}
