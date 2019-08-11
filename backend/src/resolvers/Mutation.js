@@ -39,7 +39,7 @@ const Mutation = {
   },
 
   async login(_, {email, password }, ctx, info) {
-
+    
     const user = await ctx.db.query.user({
       where: { email }
     })
@@ -53,11 +53,13 @@ const Mutation = {
     }
 
     const token = await sign({ user_id: user.id }, process.env.JWT_SECRET)
-    
+    console.log(token)
     ctx.response.cookie('token', token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
+
+    console.log(ctx.response)
 
     return user;
   },

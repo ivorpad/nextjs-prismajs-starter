@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head></Head>
+        <title>Admin Template</title>
         <body>
           <Main />
           <NextScript />

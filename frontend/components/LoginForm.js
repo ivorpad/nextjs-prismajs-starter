@@ -3,6 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Router from 'next/router'
 import { GET_POSTS } from './Posts';
+import { CURRENT_USER } from './Nav';
 
 const REQUEST_LOGIN = gql`
   mutation REQUEST_LOGIN($email: String!, $password: String!) {
@@ -31,12 +32,11 @@ function LoginForm() {
     <Mutation
       mutation={REQUEST_LOGIN}
       refetchQueries={[
-        {
-          query: GET_POSTS
-        }
+        {query: GET_POSTS},
+        {query: CURRENT_USER}
       ]}>
       {(login, { data, error, loading }) => {
-        console.log(data, loading, error);
+        // console.log(data, loading, error);
         return (
           <div>
             <form

@@ -3,16 +3,17 @@ const { AuthenticationError } = require('apollo-server-core')
 const Query = {
   posts: (_, args, ctx, info) => {
 
-    if (!ctx.user) {
-      throw new AuthenticationError('You must be logged in.')
+    if(!ctx.user) {
+      return null;
     }
 
     return ctx.db.query.posts({}, info)
   },
   currentUser: async (_, args, ctx, info) => {
-    
+
     if (!ctx.user) {
-      throw new AuthenticationError('You must be logged in')
+      return null
+      //throw new AuthenticationError('You must be logged in')
     }
     return await ctx.db.query.user({
       where: {

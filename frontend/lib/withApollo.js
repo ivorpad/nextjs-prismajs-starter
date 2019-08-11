@@ -5,14 +5,14 @@ const httpLink = new HttpLink({
   uri: "http://localhost:4545",
   credentials: "include"
 });
+
 const cache = new InMemoryCache();
 
 
-function createClient() {
+export default withApollo(({ctx, headers, initialState}) => {
   return new ApolloClient({
     link: httpLink,
+    ssrMode: true,
     cache
   });
-}
-
-export default withApollo(createClient);
+});

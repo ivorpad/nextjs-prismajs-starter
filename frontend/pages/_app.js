@@ -1,12 +1,12 @@
 import App, { Container } from "next/app";
 import Page from '../components/Page'
 import { ApolloProvider } from 'react-apollo';
-import withData from '../lib/withData'
+import withApollo from '../lib/withApollo'
 
-function Layout(props) {
-  const { children } = props;
-  return <div className="layout">{children}</div>;
-}
+// function Layout(props) {
+//   const { children } = props;
+//   return <div className="layout">{children}</div>;
+// }
 
 class RootApp extends App {
 
@@ -16,7 +16,7 @@ class RootApp extends App {
         pageProps = await Component.getInitialProps(ctx);
       }
 
-      //pageProps.query = ctx.query;
+      pageProps.query = ctx.query;
       return { pageProps };
   }
 
@@ -25,7 +25,7 @@ class RootApp extends App {
      return (
        <Container>
          <ApolloProvider client={apollo}>
-            <Page>
+            <Page apolloClient={apollo}>
               <Component {...pageProps} />
             </Page>
          </ApolloProvider>
@@ -35,4 +35,4 @@ class RootApp extends App {
 }
 
 
-export default withData(RootApp);
+export default withApollo(RootApp);

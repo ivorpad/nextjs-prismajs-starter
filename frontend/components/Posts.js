@@ -18,8 +18,8 @@ function Posts() {
         
         if (error) return <Error error={error} />
         if(loading) return <i>loading...</i>
-
-        return data.posts.map(p => (
+          
+        return data.posts && data.posts.map(p => (
           <div key={p.id}>
             <p>{p.title}</p>
           </div>

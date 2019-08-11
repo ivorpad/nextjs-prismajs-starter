@@ -4,16 +4,12 @@ const path = require('path');
 const Query = require('./resolvers/Query')
 const Mutation = require('./resolvers/Mutation');
 const { verify } = require('jsonwebtoken');
-var waitOn = require('wait-on');
 
-function getUserId(token, secret) {
-  return new Promise((resolve, reject) => {
-    console.log(token)
-    if (!token) reject("Token invalid or missing")
-
-    const { user_id } = verify(token, secret);
-    resolve(user_id)
-  })
+function getUserId(token) {
+  if (token) {
+    const { user_id } = verify(token, process.env.JWT_SECRET)
+    return user_id
+  }
 }
 
 const server = () => {
@@ -26,8 +22,10 @@ const server = () => {
     context: async ({ request, response }) => {
 
       const token = request.cookies.token;
-
-      let user = await getUserId(token, process.env.JWT_SECRET);
+      let user;
+      if(token) {
+        user = getUserId(token, process.env.JWT_SECRET);
+      }
 
       return { db, request, response, user }
     }
