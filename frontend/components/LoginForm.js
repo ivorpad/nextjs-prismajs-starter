@@ -36,10 +36,10 @@ function LoginForm() {
         {query: CURRENT_USER}
       ]}>
       {(login, { data, error, loading }) => {
-        // console.log(data, loading, error);
         return (
-          <div>
+          <div className="container h-screen flex mx-auto w-1/5">
             <form
+              className="md:flex align-bottom p-6 shadow self-center w-full justify-center flex-col"
               onSubmit={e => {
                 e.preventDefault();
                 login({
@@ -56,6 +56,7 @@ function LoginForm() {
                 value={email}
                 name="email"
                 id="email"
+                className="bg-gray-200 m-2 rounded-sm border-gray-300 border-solid border p-1"
               />
               <input
                 type="password"
@@ -63,8 +64,12 @@ function LoginForm() {
                 value={password}
                 name="password"
                 id="password"
+                className="bg-gray-200 m-2 rounded-sm border-gray-300 border-solid border p-1"
               />
-              <input type="submit" />
+              <input
+                type="submit"
+                className="bg-blue-500 rounded w-20 p-1 self-center text-blue-100 shadow cursor-pointer hover:shadow-none"
+              />
             </form>
           </div>
         );

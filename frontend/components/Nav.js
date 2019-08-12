@@ -4,6 +4,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import cookie from "js-cookie";
 import LogOut from "../components/LogOut";
+import AuthLink from "../components/AuthLink";
 
 const CURRENT_USER = gql`
   query {
@@ -30,7 +31,7 @@ function Nav() {
         const user = data?.currentUser;
 
         isLogged(user);
-        const loggedIn = cookie.get("__logged_in_status") === "false";
+        const loggedIn = cookie.get("__logged_in_status") === "true";
 
         return (
           <nav className="flex justify-between main-nav bg-white shadow pb-3 pt-3">
@@ -41,12 +42,15 @@ function Nav() {
               <Link href="/about">
                 <a className="ml-4">Other Pages</a>
               </Link>
+              <AuthLink href="/new-post"> 
+                <a className="ml-4">Add New Post</a>
+              </AuthLink>
             </div>
 
             <div className="main-nav__profile pr-3">
-              {!user && loggedIn ? (
+              {!user && !loggedIn ? (
                 <Link href="/login">
-                  <a className="ml-4">login</a>
+                  <a className="ml-4">Login</a>
                 </Link>
               ) : (
                 <LogOut />

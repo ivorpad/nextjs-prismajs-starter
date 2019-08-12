@@ -4,8 +4,9 @@ import cookie from 'next-cookies'
 function Home() {
 
   return (
-    <div>
-      <h1>Hello</h1>
+    <div className="container mx-auto text-center mt-16">
+      <h1>NextJS + PrismaJS Starter</h1>
+      <h3>With Server-Side Authentication</h3>
       <Posts />
     </div>
   );
